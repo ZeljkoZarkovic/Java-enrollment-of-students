@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Studenti FTN</title>
+    <link rel="stylesheet" th:href="@{css/studenti.css}">
+</head>
+
+<body style="margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
+
+    <nav class="navbar navbar-expand-lg navbar-light " id="navbar">
+        <div class="container">
+            <div class="rotating-image-container">
+                <img id="logo" src="img/unnamed.png" alt="">
+            </div>
+            <a class="navbar-brand" href="/">STUDENTSKA SLUZBA <br> Fakultet tehnickih nauka</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto ">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/Studenti" id="a">Studenti <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Unos" id="a">Unos studenata</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="datetime" class="ml-auto">
+                <div id="time"></div>
+                <div id="date"></div>
+            </div>
+        </div>
+    </nav>
+
+    <h1>PODACI O STUDENTIMA</h1>
+
+    <div class="container">
+        <table class="table">
+            <thead class="thead">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Br. Indeksa</th>
+                    <th scope="col">Ime</th>
+                    <th scope="col">Prezime</th>
+                    <th scope="col">Datum rodjenja</th>
+                    <th scope="col">Pol</th>
+                    <th scope="col">Bracni status</th>
+                    <th scope="col">Radni status</th>
+                    <th scope="col">Adresa</th>
+                    <th scope="col">Drzavljanstvo</th>
+                    <th scope="col">Akcija</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student:${studenti}">
+                    <td th:text="${student.getID()}"></td>
+                    <td th:text="${student.getBR_INDEKSA()}"></td>
+                    <td th:text="${student.getIME()}"></td>
+                    <td th:text="${student.getPREZIME()}"></td>
+                    <td th:text="${student.getDATUM_RODJENJA()}"></td>
+                    <td th:text="${student.getPOL()}"></td>
+                    <td th:text="${student.getBRACNI_STATUS()}"></td>
+                    <td th:text="${student.getRADNI_STATUS()}"></td>
+                    <td th:text="${student.getADRESA()}"></td>
+                    <td th:text="${student.getDRZAVLJANSTVO()}"></td>
+                    <td>
+                        <div style="display: flex; gap: 10px;">
+                            <a th:href = @{/{id}(id=${student.ID})}><button id="izmeni" type="button" class="btn">Izmeni</button></a>
+                            <a th:href = @{/delete/{id}(id=${student.ID})}><button id="izbrisi" type="button" class="btn">Izbrisi</button></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        © Napredno objektno orjentisano programiranje, Cacak 2024
+    </footer>
+
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const date = now.toLocaleDateString('sr-RS', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+            const time = now.toLocaleTimeString('sr-RS', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+    
+            document.getElementById('date').textContent = date;
+            document.getElementById('time').textContent = time;
+        }
+    
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
